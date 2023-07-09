@@ -24,21 +24,18 @@ class Node{
 
 class LRU{
     private:
-        Node* head, *tail;
         unordered_map<int, Node*> m;
+        Node* head, *tail;
         int capacity;
 
     public:
         LRU(const int capacity){
             this->capacity = capacity;
-
             head = new Node();
             tail = new Node();
-
             head->next = tail;
             tail->prev = head;
         }
-        
 
         void addNode(Node* node){
             Node* nextNode = head->next;
@@ -54,8 +51,8 @@ class LRU{
             Node* nextNode = node->next;
             Node* prevNode = node->prev;
 
-            prevNode->next = nextNode;
             nextNode->prev = prevNode;
+            prevNode->next = nextNode;
         }
 
         void put(const int key, const int val){
@@ -77,11 +74,11 @@ class LRU{
             if(m.find(key) == m.end()){
                 return -1;
             }
-
             const int res = m[key]->val;
+
             deleteNode(m[key]);
             m.erase(key);
-
+            
             Node* newNode = new Node(key, res);
             addNode(newNode);
             m[key] = newNode;
@@ -96,6 +93,6 @@ int main(){
     l.put(3, 2);
     l.put(7, 1);
     l.put(4, 2);
-    cout<<l.get(7)<<endl;
+    cout<<l.get(2)<<endl;
     return 0;
 }

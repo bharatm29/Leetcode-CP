@@ -22,6 +22,24 @@ class DisjointSet{
             return parent[u] = findUltParent(parent[u]);
         }
 
+        void unionBySize(const int u, const int v){
+            const int ult_u = findUltParent(u);
+            const int ult_v = findUltParent(v);
+
+            if(ult_u == ult_v){
+                return;
+            }
+
+            if(size[ult_v] < size[ult_u]){
+                parent[ult_v] = ult_u;
+                size[ult_u] += size[ult_v];
+            }
+            else{
+                parent[ult_u] = ult_v;
+                size[ult_v] += size[ult_u];
+            }
+        }
+
         void unionByRank(const int u, const int v){
             const int ult_u = findUltParent(u);
             const int ult_v = findUltParent(v);
@@ -30,36 +48,15 @@ class DisjointSet{
                 return;
             }
 
-            if(rank[ult_u] > rank[ult_v]){
+            if(rank[ult_v] < rank[ult_u]){
                 parent[ult_v] = ult_u;
             }
-
             else if(rank[ult_v] > rank[ult_u]){
                 parent[ult_u] = ult_v;
             }
-
             else{
                 parent[ult_u] = ult_v;
                 rank[ult_v]++;
-            }
-        }
-
-        void unionBySize(const int u, const int v){
-            const int ult_u = findUltParent(u);
-            const int ult_v = findUltParent(v);
-
-            if(ult_u == ult_v){
-                return;
-            }
-            
-            if(size[ult_u] > size[ult_v]){
-                parent[ult_v] = ult_u;
-                size[ult_u] += size[ult_v];
-            }
-
-            else{
-                parent[ult_u] = ult_v;
-                size[ult_v] += size[ult_u];
             }
         }
 };
