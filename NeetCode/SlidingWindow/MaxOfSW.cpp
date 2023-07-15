@@ -22,8 +22,7 @@ vector<int> findMax(vector<int> &v, int k) {
     if (j - i + 1 < k) {
       j++;
     } else if (j - i + 1 == k) {
-        int curMax{0};
-        curMax = maxq.front();
+        const int curMax = maxq.front();
         ans.push_back(curMax);
 
         if (curMax == v[i]) {

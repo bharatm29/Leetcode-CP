@@ -2,38 +2,41 @@
 #include <stdexcept>
 using namespace std;
 
-void error(string err){
-    throw runtime_error(err);
+void error(const string s){
+    throw runtime_error(s);
 }
 
 class Node{
     public:
-        int val;
         Node* next;
+        int val;
+
         Node(){
             this->next = nullptr;
         }
-        Node(int val){
-            this->next = nullptr;
+
+        Node(const int val){
             this->val = val;
+            this->next = nullptr;
         }
 };
 
 class Queue{
     private:
-        Node *front, *rear;
+        Node* front, *rear;
 
     public:
         Queue(){
             front = rear = nullptr;
         }
-        
+
         bool isEmpty(){
             return !front && !rear;
         }
 
         void push(const int val){
             Node* temp = new Node(val);
+
             if(isEmpty()){
                 front = rear = temp;
                 return;
@@ -45,25 +48,28 @@ class Queue{
 
         void pop(){
             if(isEmpty()){
-                error("pop() on a empty queue");
+                error("pop() on an empty queue");
             }
-            if(front == rear){
-                front = rear = nullptr;
-            }
+
+            Node* temp = front;
             front = front->next;
+
+            delete temp;
         }
 
         int peekFront(){
             if(isEmpty()){
-                error("peekFront() on a empty queue");
+                error("peekFront() on an empty queue");
             }
+
             return front->val;
         }
 
         int back(){
             if(isEmpty()){
-                error("back() on a empty queue");
+                error("back() on an empty queue");
             }
+
             return rear->val;
         }
 };

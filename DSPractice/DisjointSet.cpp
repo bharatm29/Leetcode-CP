@@ -2,7 +2,7 @@
 #include <vector>
 using namespace std;
 
-class DisjointSet{
+class  DisjointSet{
     private:
         vector<int> parent, size, rank;
     public:
@@ -16,7 +16,7 @@ class DisjointSet{
         }
 
         int findUltParent(const int u){
-            if(parent[u] == u){
+            if(u == parent[u]){
                 return u;
             }
             return parent[u] = findUltParent(parent[u]);
@@ -30,7 +30,7 @@ class DisjointSet{
                 return;
             }
 
-            if(size[ult_v] < size[ult_u]){
+            if(size[ult_u] > size[ult_v]){
                 parent[ult_v] = ult_u;
                 size[ult_u] += size[ult_v];
             }
@@ -43,12 +43,11 @@ class DisjointSet{
         void unionByRank(const int u, const int v){
             const int ult_u = findUltParent(u);
             const int ult_v = findUltParent(v);
-
-            if(ult_u == ult_v){
+            if(ult_v == ult_u){
                 return;
             }
 
-            if(rank[ult_v] < rank[ult_u]){
+            if(rank[ult_u] > rank[ult_v]){
                 parent[ult_v] = ult_u;
             }
             else if(rank[ult_v] > rank[ult_u]){
@@ -66,7 +65,7 @@ int main(){
     ds.unionBySize(2, 3);
     ds.unionBySize(2, 1);
     ds.unionBySize(5, 4);
-    if(ds.findUltParent(5) != ds.findUltParent(3)){
+    if(ds.findUltParent(5) != ds.findUltParent(4)){
         cout<<"Not connected"<<endl;
     }
     return 0;

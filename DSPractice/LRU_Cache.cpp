@@ -6,33 +6,32 @@ using namespace std;
 
 class Node{
     public:
-        Node* next, *prev;
         int key, val;
+        Node* next, *prev;
 
         Node(){
-            this->next = nullptr;
-            this->prev = nullptr;
+            this->next = this->prev = nullptr;
         }
 
         Node(const int key, const int val){
+            this->next = this->prev = nullptr;
             this->key = key;
             this->val = val;
-            this->next = nullptr;
-            this->prev = nullptr;
         }
 };
 
 class LRU{
     private:
+        Node *head, *tail;
         unordered_map<int, Node*> m;
-        Node* head, *tail;
         int capacity;
-
     public:
         LRU(const int capacity){
             this->capacity = capacity;
+            
             head = new Node();
             tail = new Node();
+
             head->next = tail;
             tail->prev = head;
         }
@@ -40,19 +39,19 @@ class LRU{
         void addNode(Node* node){
             Node* nextNode = head->next;
 
-            head->next = node;
             node->prev = head;
+            head->next = node;
 
-            node->next = nextNode;
             nextNode->prev = node;
+            node->next = nextNode;
         }
 
         void deleteNode(Node* node){
             Node* nextNode = node->next;
             Node* prevNode = node->prev;
 
-            nextNode->prev = prevNode;
             prevNode->next = nextNode;
+            nextNode->prev = prevNode;
         }
 
         void put(const int key, const int val){
@@ -60,14 +59,15 @@ class LRU{
                 deleteNode(m[key]);
                 m.erase(key);
             }
-            if(capacity == m.size()){
+            if(this->capacity == this->m.size()){
                 m.erase(tail->prev->key);
                 deleteNode(tail->prev);
             }
 
             Node* newNode = new Node(key, val);
-            addNode(newNode);
             m[key] = newNode;
+
+            addNode(newNode);
         }
 
         int get(const int key){
@@ -75,10 +75,10 @@ class LRU{
                 return -1;
             }
             const int res = m[key]->val;
-
+            
             deleteNode(m[key]);
             m.erase(key);
-            
+
             Node* newNode = new Node(key, res);
             addNode(newNode);
             m[key] = newNode;
