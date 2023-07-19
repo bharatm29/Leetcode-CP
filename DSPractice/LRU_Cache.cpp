@@ -22,9 +22,9 @@ class Node{
 
 class LRU{
     private:
-        Node *head, *tail;
-        unordered_map<int, Node*> m;
+        Node* head, *tail;
         int capacity;
+        unordered_map<int, Node*> m;
     public:
         LRU(const int capacity){
             this->capacity = capacity;
@@ -39,11 +39,11 @@ class LRU{
         void addNode(Node* node){
             Node* nextNode = head->next;
 
-            node->prev = head;
             head->next = node;
+            node->prev = head;
 
-            nextNode->prev = node;
             node->next = nextNode;
+            nextNode->prev = node;
         }
 
         void deleteNode(Node* node){
@@ -59,21 +59,21 @@ class LRU{
                 deleteNode(m[key]);
                 m.erase(key);
             }
-            if(this->capacity == this->m.size()){
+            if(this->capacity == m.size()){
                 m.erase(tail->prev->key);
                 deleteNode(tail->prev);
             }
 
             Node* newNode = new Node(key, val);
-            m[key] = newNode;
-
             addNode(newNode);
+            m[key] = newNode;
         }
 
         int get(const int key){
             if(m.find(key) == m.end()){
                 return -1;
             }
+
             const int res = m[key]->val;
             
             deleteNode(m[key]);

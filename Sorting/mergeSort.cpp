@@ -17,14 +17,15 @@ void merge(vector<int>& v, const int low, const int mid, const int high){
             j++;
         }
     }
-    
+
     while(i <= mid){
-        temp.push_back(v[i]);
-        i++;
+            temp.push_back(v[i]);
+            i++;
     }
+
     while(j <= high){
-        temp.push_back(v[j]);
-        j++;
+            temp.push_back(v[j]);
+            j++;
     }
 
     for(int k = low; k <= high; k++){
@@ -37,6 +38,7 @@ void mergeSort(vector<int>& arr, const int low, const int high){
         return;
     }
     const int mid = (low + high) / 2;
+
     mergeSort(arr, low, mid);
     mergeSort(arr, mid + 1, high);
     merge(arr, low, mid, high);

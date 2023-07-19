@@ -4,8 +4,10 @@ using namespace std;
 
 int pivot(vector<int>& v, const int low, const int high){
     const int pivotVal = v[low];
+
     int i = low;
     int j = high;
+
     while(i < j){
         while(i < high && v[i] <= pivotVal){
             i++;
@@ -17,6 +19,7 @@ int pivot(vector<int>& v, const int low, const int high){
             swap(v[i], v[j]);
         }
     }
+
     swap(v[j], v[low]);
     return j;
 }

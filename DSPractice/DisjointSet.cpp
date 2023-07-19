@@ -1,8 +1,9 @@
+#include <algorithm>
 #include <iostream>
 #include <vector>
 using namespace std;
 
-class  DisjointSet{
+class DisjointSet{
     private:
         vector<int> parent, size, rank;
     public:
@@ -43,7 +44,8 @@ class  DisjointSet{
         void unionByRank(const int u, const int v){
             const int ult_u = findUltParent(u);
             const int ult_v = findUltParent(v);
-            if(ult_v == ult_u){
+
+            if(ult_u == ult_v){
                 return;
             }
 
@@ -65,7 +67,7 @@ int main(){
     ds.unionBySize(2, 3);
     ds.unionBySize(2, 1);
     ds.unionBySize(5, 4);
-    if(ds.findUltParent(5) != ds.findUltParent(4)){
+    if(ds.findUltParent(5) != ds.findUltParent(2)){
         cout<<"Not connected"<<endl;
     }
     return 0;
