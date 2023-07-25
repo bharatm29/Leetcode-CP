@@ -23,8 +23,7 @@ class Node{
 
 class Queue{
     private:
-        Node* front, *rear;
-
+        Node *front, *rear;
     public:
         Queue(){
             front = rear = nullptr;
@@ -35,15 +34,15 @@ class Queue{
         }
 
         void push(const int val){
-            Node* temp = new Node(val);
+            Node* node = new Node(val);
 
-            if(isEmpty()){
-                front = rear = temp;
+            if(!front){
+                front = rear = node;
                 return;
             }
-            
-            rear->next = temp;
-            rear = temp;
+
+            rear->next = node;
+            rear = rear->next;
         }
 
         void pop(){
@@ -51,10 +50,16 @@ class Queue{
                 error("pop() on an empty queue");
             }
 
-            Node* temp = front;
-            front = front->next;
+            Node* node = front;
 
-            delete temp;
+            if(front == rear){
+                front = rear = nullptr;
+            }
+            else{
+                front = front->next;
+            }
+
+            delete[] node;
         }
 
         int peekFront(){
@@ -67,7 +72,7 @@ class Queue{
 
         int back(){
             if(isEmpty()){
-                error("back() on an empty queue");
+                error("peekFront() on an empty queue");
             }
 
             return rear->val;
@@ -86,6 +91,7 @@ int main(){
     q.pop();
     q.pop();
     q.push(9);
+    cout<<q.peekFront()<<endl;
     cout<<q.back()<<endl;
     return 0;
 }

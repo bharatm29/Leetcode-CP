@@ -1,39 +1,46 @@
 #include <algorithm>
 #include <iostream>
+#include <stack>
 #include <vector>
 using namespace std;
 
 int findLis1(vector<int>& nums){
-    int n = nums.size();
-    vector<int> dp(n, 1), seq(n);
-    int ans{1}, end{0};
-    
-    for(int i = 1; i < n; i++){
+    const int n = nums.size();
+    int maxLen{0}, end{0};
+
+    vector<int> dp(n + 1, 1);
+    vector<int> seq(n);
+
+    for(int i = 0; i < n; i++){
         seq[i] = i;
         for(int j = 0; j < i; j++){
-            if(nums[j] < nums[i] && dp[i] < dp[j] + 1){
+            if(nums[i] > nums[j] && dp[i] < 1 + dp[j]){
                 dp[i] = 1 + dp[j];
                 seq[i] = j;
             }
         }
-        if (ans < dp[i]) {
-            ans = dp[i];
+
+        if(maxLen < dp[i]){
+            maxLen = dp[i];
             end = i;
         }
     }
 
-    vector<int> lis = {nums[end]};
-    while (end != seq[end]) {
+    stack<int> s;
+    s.push(nums[end]);
+
+    while(end != seq[end]){
         end = seq[end];
-        lis.push_back(nums[end]);
+        s.push(nums[end]);
     }
-    reverse(lis.begin(), lis.end());
-    for (const auto x : lis){
-        cout<<x<<", ";
+    
+    while(!s.empty()){
+        cout<<s.top()<<", ";
+        s.pop();
     }
     cout<<endl;
 
-    return ans;
+    return maxLen;
 }
 
 int findLis2(vector<int>& nums){

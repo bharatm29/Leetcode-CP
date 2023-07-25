@@ -40,7 +40,7 @@ class Trie{
 
             for(const auto c : s){
                 if(!node->containsKey(c)){
-                    node->put(c, new Node());
+                    node->put(c, new Node());       
                 }
                 node = node->get(c);
             }
@@ -50,12 +50,14 @@ class Trie{
 
         bool search(const string s){
             Node* node = root;
+
             for(const auto c : s){
                 if(!node->containsKey(c)){
-                    return false;    
+                    return false;
                 }
                 node = node->get(c);
             }
+
             return node->isEnd();
         }
 
@@ -64,7 +66,7 @@ class Trie{
 
             for(const auto c : s){
                 if(!node->containsKey(c)){
-                    return false;
+                    return false;   
                 }
                 node = node->get(c);
             }
@@ -77,7 +79,7 @@ int main(){
     Trie t;
     t.insert("something");
     t.insert("asda");
-    if(t.search("asdadwdaw")){
+    if(t.search("asda")){
         cout<<"TRUE"<<endl;
     }
     else{

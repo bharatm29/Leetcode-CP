@@ -11,6 +11,7 @@ class DisjointSet{
             size.resize(sz + 1, 1);
             rank.resize(sz + 1, 0);
             parent.resize(sz + 1);
+
             for(int i = 0; i <= sz; i++){
                 parent[i] = i;
             }
@@ -20,6 +21,7 @@ class DisjointSet{
             if(u == parent[u]){
                 return u;
             }
+
             return parent[u] = findUltParent(parent[u]);
         }
 
@@ -27,7 +29,7 @@ class DisjointSet{
             const int ult_u = findUltParent(u);
             const int ult_v = findUltParent(v);
 
-            if(ult_u == ult_v){
+            if(ult_v == ult_u){
                 return;
             }
 
@@ -45,7 +47,7 @@ class DisjointSet{
             const int ult_u = findUltParent(u);
             const int ult_v = findUltParent(v);
 
-            if(ult_u == ult_v){
+            if(ult_v == ult_u){
                 return;
             }
 

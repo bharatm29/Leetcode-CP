@@ -1,23 +1,28 @@
-s = ""
+def isValidOrder(c, d):
+    if c == '(' and d == ')':
+        return True
+    elif c == '(' and d == ')':
+        return True
+    elif c == '(' and d == ')':
+        return True
 
-input(s)
+    return False
 
 
-def isPalindrome(s):
-    i = 0
-    j = len(s) - 1
+def validParenthesis(s):
+    stack = []
 
-    while i < j:
-        if s.charAt(i) != s.charAt(j):
-            return False
+    for c in s:
+        if c == '(' or c == '[' or c == '{':
+            stack.append(c)
         else:
-            i = 1 + i
-            j = j - 1
+            if not isValidOrder(stack[-1], c):
+                return False
+            stack.pop()
 
-    return True
 
-
-if isPalindrome(s):
+s = "(){}[]"
+if validParenthesis(s):
     print("TRUE")
 else:
     print("FALSE")

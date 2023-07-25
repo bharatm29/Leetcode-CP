@@ -17,6 +17,7 @@ vector<int> findAnagrams(string& a, string& b){
     for(const auto c : b){
         m[c]++;   
     }
+
     cnt = m.size();
 
     while (j < n) {
