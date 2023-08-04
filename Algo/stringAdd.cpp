@@ -21,7 +21,7 @@ string addString(string s1, string s2){
         res.push_back((sum % 10) + '0');
     }
 
-    for(int i = diff - 1; i >= 0; i--){
+    for(int i = diff; i >= 0; i--){
         sum = (s2[i] - '0') + carry;
         carry = sum / 10;
         res.push_back((sum % 10) + '0');

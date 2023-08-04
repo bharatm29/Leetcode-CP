@@ -38,23 +38,23 @@ class LRU{
             head->next = tail;
             tail->prev = head;
         }
-
+        
         void addNode(Node* node){
             Node* nextNode = head->next;
 
             head->next = node;
             node->prev = head;
 
-            nextNode->prev = node;
             node->next = nextNode;
+            nextNode->prev = node;
         }
 
         void deleteNode(Node* node){
             Node* nextNode = node->next;
             Node* prevNode = node->prev;
 
-            nextNode->prev = prevNode;
             prevNode->next = nextNode;
+            nextNode->prev = prevNode;
         }
 
         void put(const int key, const int val){
@@ -62,23 +62,25 @@ class LRU{
                 deleteNode(m[key]);
                 m.erase(key);
             }
+
             if(this->capacity == m.size()){
                 m.erase(tail->prev->key);
-                deleteNode(tail->prev);   
+                deleteNode(tail->prev);
             }
 
             Node* newNode = new Node(key, val);
+
             addNode(newNode);
             m[key] = newNode;
         }
 
         int get(const int key){
             if(m.find(key) == m.end()){
-                return -1;       
+                return -1;
             }
 
             const int res = m[key]->val;
-            
+
             deleteNode(m[key]);
             m.erase(key);
 

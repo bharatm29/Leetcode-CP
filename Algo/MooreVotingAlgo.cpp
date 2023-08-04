@@ -7,8 +7,8 @@ int findMajority(vector<int>& v){
 
     for(const auto x : v){
         if(!cnt){
-            cnt = 1;
             el = x;
+            cnt = 1;
         }
         else if(el == x){
             cnt++;
@@ -20,7 +20,6 @@ int findMajority(vector<int>& v){
 
     return el;
 }
-
 int main(){
     vector<int> v = {0, 0, 1, 6, 7, 7, 3, 7, 7, 9};
     cout<<findMajority(v)<<endl;

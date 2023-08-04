@@ -1,6 +1,5 @@
 #include <iostream>
 using namespace std;
-
 class Node{
     public:
         Node* links[26];
@@ -37,10 +36,9 @@ class Trie{
 
         void insert(const string s){
             Node* node = root;
-
             for(const auto c : s){
                 if(!node->containsKey(c)){
-                    node->put(c, new Node());       
+                    node->put(c, new Node());
                 }
                 node = node->get(c);
             }
@@ -55,6 +53,7 @@ class Trie{
                 if(!node->containsKey(c)){
                     return false;
                 }
+
                 node = node->get(c);
             }
 
@@ -66,8 +65,9 @@ class Trie{
 
             for(const auto c : s){
                 if(!node->containsKey(c)){
-                    return false;   
+                    return false;
                 }
+
                 node = node->get(c);
             }
 

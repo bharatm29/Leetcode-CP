@@ -1,23 +1,23 @@
 #include <iostream>
 using namespace std;
 
-double power( double n,  int p){
+double power(double x,  int p){
     if(p == 0){
         return 1;
     }
 
     if(p < 0){
         p = abs(p);
-        n = 1.00000 / n;
+        x = 1.00000 / x;
     }
 
     double res = 1.00000;
-
     while(p > 0){
         if(p & 1){
-            res *= n;
+            res *= x;
         }
-        n *= n;
+
+        x *= x;
         p /= 2;
     }
 

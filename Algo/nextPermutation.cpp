@@ -4,7 +4,7 @@
 using namespace std;
 
 void nextPermutation(vector<int>& v){
-    const int n = v.size();   
+    const int n = v.size();
     int index{-1};
 
     for(int i = n - 2; i >= 0; i--){
@@ -29,7 +29,7 @@ void nextPermutation(vector<int>& v){
 }
 
 int main(){
-    vector<int> v = { 3, 1, 2};
+    vector<int> v = {3, 1, 2, 6, 0};
     nextPermutation(v);
     for(const auto x : v){
         cout<<x<<", ";

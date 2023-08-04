@@ -9,9 +9,9 @@ class DisjointSet{
     public:
         DisjointSet(const int sz){
             size.resize(sz + 1, 1);
-            rank.resize(sz + 1, 0);
-            parent.resize(sz + 1);
+            rank.resize(sz + 1);
 
+            parent.resize(sz + 1);
             for(int i = 0; i <= sz; i++){
                 parent[i] = i;
             }
@@ -29,17 +29,17 @@ class DisjointSet{
             const int ult_u = findUltParent(u);
             const int ult_v = findUltParent(v);
 
-            if(ult_v == ult_u){
+            if(ult_u == ult_v){
                 return;
             }
 
             if(size[ult_u] > size[ult_v]){
-                parent[ult_v] = ult_u;
                 size[ult_u] += size[ult_v];
+                parent[ult_v] = ult_u;
             }
             else{
-                parent[ult_u] = ult_v;
                 size[ult_v] += size[ult_u];
+                parent[ult_u] = ult_v;
             }
         }
 
@@ -47,7 +47,7 @@ class DisjointSet{
             const int ult_u = findUltParent(u);
             const int ult_v = findUltParent(v);
 
-            if(ult_v == ult_u){
+            if(ult_u == ult_v){
                 return;
             }
 
@@ -55,11 +55,11 @@ class DisjointSet{
                 parent[ult_v] = ult_u;
             }
             else if(rank[ult_v] > rank[ult_u]){
-                parent[ult_u] = ult_v;
+                parent[ult_u] = parent[ult_v];
             }
             else{
-                parent[ult_u] = ult_v;
                 rank[ult_v]++;
+                parent[ult_u] = ult_v;
             }
         }
 };
