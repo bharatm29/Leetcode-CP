@@ -36,10 +36,12 @@ class Trie{
 
         void insert(const string s){
             Node* node = root;
+
             for(const auto c : s){
                 if(!node->containsKey(c)){
                     node->put(c, new Node());
                 }
+
                 node = node->get(c);
             }
 

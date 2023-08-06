@@ -45,13 +45,13 @@ class LRU{
             head->next = node;
             node->prev = head;
 
-            node->next = nextNode;
             nextNode->prev = node;
+            node->next = nextNode;
         }
 
         void deleteNode(Node* node){
-            Node* nextNode = node->next;
             Node* prevNode = node->prev;
+            Node* nextNode = node->next;
 
             prevNode->next = nextNode;
             nextNode->prev = prevNode;
@@ -62,7 +62,6 @@ class LRU{
                 deleteNode(m[key]);
                 m.erase(key);
             }
-
             if(this->capacity == m.size()){
                 m.erase(tail->prev->key);
                 deleteNode(tail->prev);

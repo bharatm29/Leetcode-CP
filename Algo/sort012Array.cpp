@@ -9,7 +9,7 @@ void sortArr(vector<int>& v){
 
     while(mid <= high){
         if(!v[mid]){
-            swap(v[low], v[mid]);
+            swap(v[mid], v[low]);
             mid++;
             low++;
         }
@@ -17,7 +17,7 @@ void sortArr(vector<int>& v){
             mid++;
         }
         else{
-            swap(v[high], v[mid]);
+            swap(v[mid], v[high]);
             high--;
         }
     }
