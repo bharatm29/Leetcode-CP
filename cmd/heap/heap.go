@@ -20,7 +20,6 @@ func (h *Heap) Push(val int) {
 
 	h.arr[h.length] = val
 	h.heapifyUp(h.length)
-
 	h.length++
 }
 
@@ -29,19 +28,15 @@ func (h *Heap) Pop() int {
 		return -1
 	}
 
-	val := h.arr[0]
 	h.length--
+	val := h.arr[0]
 
 	if h.length == 0 {
 		h.arr = []int{}
-
 		return val
 	}
 
 	h.arr[0] = h.arr[h.length]
-
-	h.arr = h.arr[:h.length+1]
-
 	h.heapifyDown(0)
 
 	return val
@@ -52,37 +47,36 @@ func (h *Heap) heapifyUp(index int) {
 		return
 	}
 
-	parentIndex := getParentIndex(index)
-	parentVal := h.arr[parentIndex]
+	pIndex := getParentIndex(index)
+	pVal := h.arr[pIndex]
+
 	val := h.arr[index]
 
-	if parentVal > val {
-		h.arr[parentIndex] = val
-		h.arr[index] = parentVal
-
-		h.heapifyUp(parentIndex)
+	if pVal > val {
+		h.arr[pIndex] = val
+		h.arr[index] = pVal
+		h.heapifyUp(pIndex)
 	}
 }
 
 func (h *Heap) heapifyDown(index int) {
-	leftIndex, rightIndex := getLeftIndex(index), getRightIndex(index)
-	if index >= h.length || leftIndex >= h.length {
+	lIndex, rIndex := getLeftIndex(index), getRightIndex(index)
+
+	if index >= h.length || lIndex >= h.length {
 		return
 	}
 
-	leftVal, rightVal := h.arr[leftIndex], h.arr[rightIndex]
+	lVal, rVal := h.arr[lIndex], h.arr[rIndex]
 	val := h.arr[index]
 
-	if rightVal > leftVal && val > leftVal {
-		h.arr[index] = leftVal
-		h.arr[leftIndex] = val
-
-		h.heapifyDown(leftIndex)
-	} else if leftVal > rightVal && val > rightVal {
-		h.arr[index] = rightVal
-		h.arr[rightIndex] = val
-
-		h.heapifyDown(rightIndex)
+	if rVal > lVal && val > lVal {
+		h.arr[index] = lVal
+		h.arr[lIndex] = val
+		h.heapifyDown(lIndex)
+	} else if lVal > rVal && val > rVal {
+		h.arr[index] = rVal
+		h.arr[rIndex] = val
+		h.heapifyDown(rIndex)
 	}
 }
 
